@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norwest Auto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1b2a;
+      --steel: #1b2d45;
+      --accent: #c8960c;
+      --light: #e8dfc8;
+      --muted: #8a9ab0;
+      --white: #f5f2ec;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    header {
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(200,150,12,0.2);
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%);
+    }
+
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+
+    .logo-text span {
+      color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 6rem 3rem 4rem;
+      max-width: 900px;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(200,150,12,0.15);
+      border: 1px solid rgba(200,150,12,0.4);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .highlight {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* Divider */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--accent);
+      margin: 0 3rem 4rem;
+      animation: fadeUp 1s 0.4s ease both;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+      margin: 0 3rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .info-card {
+      background: var(--navy);
+      padding: 2.5rem;
+      transition: background 0.3s;
+    }
+
+    .info-card:hover {
+      background: var(--steel);
+    }
+
+    .info-card .card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .info-card .card-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .info-card .card-value {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .info-card a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .info-card a:hover {
+      color: var(--accent);
+    }
+
+    /* Payment CTA */
+    .payment-section {
+      margin: 4rem 3rem;
+      padding: 3rem;
+      background: linear-gradient(135deg, rgba(200,150,12,0.08) 0%, rgba(200,150,12,0.02) 100%);
+      border: 1px solid rgba(200,150,12,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      animation: fadeUp 1s 0.6s ease both;
+    }
+
+    .payment-section .payment-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+
+    .payment-section .payment-text p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    .btn-pay {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--accent);
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-pay:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    footer {
+      padding: 2rem 3rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      margin-top: 2rem;
+      animation: fadeUp 1s 0.7s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header, .hero, .divider, .info-grid, .payment-section, footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .payment-section { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-mark">NA</div>
+    <div class="logo-text">NORWEST <span>AUTO</span></div>
+  </header>
+
+  <section class="hero">
+    <div class="badge">Important Update</div>
+    <h1>
+      We've Made
+      <span class="highlight">A Change.</span>
+    </h1>
+    <p class="hero-sub">
+      Norwest Auto has transitioned from retail sales and is no longer open to the public. 
+      We now operate exclusively as a wholesale dealership. <strong style="color: var(--white);">Existing and past customers — we're still here for you.</strong> Reach out anytime for payment help, account questions, or assistance finding a vehicle.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="card-icon">📍</div>
+      <div class="card-label">New Location</div>
+      <div class="card-value">
+        390 N Circle Dr, Suite 130<br />
+        Colorado Springs, CO 80909
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="card-icon">📞</div>
+      <div class="card-label">Phone</div>
+      <div class="card-value">
+        <a href="tel:+17193987992">(719) 398-7992</a>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="card-icon">✉️</div>
+      <div class="card-label">Email</div>
+      <div class="card-value">
+        <a href="mailto:jacob@norwestauto.com">jacob@norwestauto.com</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="payment-section">
+    <div class="payment-text">
+      <h2>Still Here for Our Customers</h2>
+      <p style="color: var(--muted); font-size: 0.9rem; font-weight: 300; margin-bottom: 1.2rem; max-width: 480px; line-height: 1.7;">
+        Whether you need to make a payment, have questions about your account, or are looking for help finding your next vehicle — don't hesitate to reach out. We're still happy to serve you.
+      </p>
+      <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;">
+        <a class="btn-pay" href="https://carpay.com" target="_blank" rel="noopener">Make a Payment →</a>
+        <a class="btn-pay" href="tel:+17193987992" style="background: transparent; color: var(--accent); border: 1px solid rgba(200,150,12,0.5);">Call Us →</a>
+        <a class="btn-pay" href="mailto:jacob@norwestauto.com" style="background: transparent; color: var(--accent); border: 1px solid rgba(200,150,12,0.5);">Email Us →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Norwest Auto &nbsp;|&nbsp; Colorado Springs, CO
+  </footer>
+
+</body>
+</html>
